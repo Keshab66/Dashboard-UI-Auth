@@ -1,0 +1,40 @@
+.right-container{
+    margin-left: 40px;
+}
+.main-container{
+  
+    display: flex;
+    width: 100%;
+   
+}
+.left-menu{
+    margin-top: 0px ;
+    background-color: black;
+    color: white;
+    width: 400px;
+    border-radius: 20px;
+}
+.header{
+    text-align: center;
+    font-size: 30px;
+    padding-top: 20px;
+}
+.menu-items{
+    margin-top: 18px;
+}
+.menu-items ul li{
+    list-style: none;
+    padding: 12px;
+}
+.footer{
+    margin-top: 237px;
+}
+.footer ul li{
+    list-style: none;
+    padding: 12px;
+}
+.pie-value{
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
