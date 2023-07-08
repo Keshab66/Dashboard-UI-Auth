@@ -3,11 +3,25 @@ import './auth.css';
 import { FcGoogle } from 'react-icons/fc';
 import { BsApple } from 'react-icons/bs'
 import {auth,provider} from "../firebase/Firebase.config"
-import {signInWithPopup} from "firebase/auth"
+import {signInWithPopup,createUserWithEmailAndPassword} from "firebase/auth"
 import { Navigate } from 'react-router-dom';
 
 const SigninForm = () => {
 const [value,setValue]=useState("");
+
+const[email,setEmail]=useState();
+const [password,setPassword]=useState();
+const [user,setUser]=useState();
+let signupHandle = async (event) => {
+  event.preventDefault();
+  try {
+   setUser(await createUserWithEmailAndPassword(auth, email, password)) ;
+    setEmail(" ");
+    setPassword(" ");
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 const handleClick=()=>{
   signInWithPopup(auth,provider).then((data)=>{setValue(data.user.email)
@@ -44,17 +58,21 @@ const handleClick=()=>{
             </div>
           </div>
           <div className='form-section'>
-            <form className='form'>
+            <form className='form' onSubmit={signupHandle }>
               <div style={{ display: 'flex', flexDirection: 'column', marginBottom: '18px' }}>
                 <label>Email address</label>
-                <input name="email" type='email' required />
+                <input name="email" type='email' required onChange={(event)=>{setEmail(event.target.value)}} />
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', marginBottom: '18px' }}>
                 <label>Password</label>
-                <input name='password' type='password' required></input>
+                <input name='password' type='password' required onChange={(event)=>{setPassword(event.target.value)}}></input>
                 <h6 style={{ color: 'blue' }}>forget password?</h6>
               </div>
-              <button className='sign'>Sign In</button>
+              <>
+                {
+                  user?<Navigate to="/Menubar"/>:<button type='submit' className='sign' >Sign In</button>
+                }
+              </>
             </form>
             <div className='register'>
             <p>Don't have an account? <span>Register Here</span> </p>
